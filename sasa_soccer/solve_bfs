@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <queue>
+using namespace std;
+
+typedef struct player{
+	int xp;
+	int yp;
+	char l;
+}player;
+
+queue<player> qu;
+
+int n, c;
+int x,y;
+char arr[23][23];
+int visit[23][23];
+int dx[4] = {1,0,-1,0}, dy[4] = {0,1,0,-1};
+
+
+bool ch(int x, int y, int nx, int ny, int type){
+	if(type==0){
+		if(nx>18) return 0;
+		for(int i=x+1; i<=nx; i++){
+			if(arr[i][y]=='x') return 0;
+		}
+	}
+	
+	else if(type==1){
+		if(ny>18) return 0;
+		for(int i=y+1; i<=ny; i++){
+			if(arr[x][i]=='x') return 0;
+		}
+	}
+	
+	else if(type==2){
+		if(nx<0) return 0;
+		for(int i=x-1; i>=nx; i--){
+			if(arr[i][y]=='x') return 0;
+		}
+	}
+	
+	else{
+		if(ny<0) return 0;
+		for(int i=y-1; i>=ny; i--){
+			if(arr[x][i]=='x') return 0;
+		}
+	}
+	return 1;
+}
+
+void f(int x, int y){
+	qu.push({x,y,arr[x][y]});
+	visit[x][y]=1;	
+	while(!qu.empty()){
+		player a = qu.front();
+		qu.pop();
+		if(arr[a.xp][a.yp]=='g'){
+			printf("WIN");
+			return;
+		}
+		for(int i=0; i<4; i++){
+			for(int k=1; k<=a.l-'0'; k++){
+				int nx = a.xp+dx[i]*k;
+				int ny = a.yp+dy[i]*k;
+				if(ch(x,y,nx,ny,i)&&(('0'<arr[nx][ny]&&arr[nx][ny]<='9')||arr[nx][ny]=='g')&&!visit[nx][ny]){
+					qu.push({nx,ny,arr[nx][ny]});
+					visit[nx][ny]=1;
+				}			
+			}
+		}
+	}
+	printf("LOSE");
+}
+
+int main(){
+	for(int i=0; i<19; i++)
+		for(int j=0; j<19; j++)
+			scanf(" %c",&arr[i][j]);
+	scanf("%d%d",&x,&y);
+	f(x,y);									
+}
