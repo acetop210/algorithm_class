@@ -77,7 +77,10 @@ ll sum(int node, int start, int end, int i, int j)
 - [출처](https://bowbowbow.tistory.com/4)
 
 ## Bit masking
-- 의미<br>비트 단위로 값을 보존하는 것<br>시간 and 메모리 절약 가능<br>예시: visit 배열 대신 사용할 수 있음
+- 의미
+   + 비트 단위로 값을 보존하는 것
+   + 시간 and 메모리 절약 가능
+   + 예시: visit 배열 대신 사용할 수 있음
 - 비트 연산
    1. **&**(and) : 둘 다 1인 경우 1 / else 0<br> ex) 1011 & 1101 = 1001
    2. **|**(or) : 둘 중 하나 혹은 모두 1인 경우 1 / else 0<br> ex) 1011 | 1101 = 1111
